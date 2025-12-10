@@ -25,6 +25,7 @@ class PaymentController extends Controller
             'amount'       => 'required|numeric|min:1',
             'notifyUrl'    => 'required|url',
             'callbackUrl'  => 'nullable|url',
+            'wayCode'     => 'nullable|string',
         ]);
 
         $merchantOrderId = Str::uuid()->toString(); // Generates unique order ID
@@ -43,12 +44,14 @@ class PaymentController extends Controller
      */
     private function buildParams(array $data, string $merchantOrderId): array
     {
+        // return $data;
         $base = [
             'merchantId'      => $data['merchantId'],
             'merchantOrderId' => $merchantOrderId,
             'amount'          => $data['amount'],
             'notifyUrl'       => $data['notifyUrl'],
             'callbackUrl'     => $data['callbackUrl'] ?? env('APP_URL') . '/api/flashpay/callback',
+            'wayCode' => $data['wayCode'] ?? "GA_CARD",
         ];
 
         /** Additional parameters based on country selected by the country passed */
@@ -90,7 +93,7 @@ class PaymentController extends Controller
             default:
                 $extra = [];
         }
-
+        // return $base;
         return array_merge($base, $extra);
     }
 

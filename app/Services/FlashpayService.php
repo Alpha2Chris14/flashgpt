@@ -14,7 +14,7 @@ class FlashpayService
     {
         // $this->url = "https://www.flashpay.space/Api/Pay/Submit";
         // $this->url = "https://www.flashpay.space/Api/Receive/Submit";
-        $this->url = "https://pay.flashpay.fit/Api/Receive/Submit";
+        $this->url = "https://pay.flashpay.fit/api/pay/unifiedOrder";
         $this->openid = env('FLASH_PAY_OPENID');
         $this->token  = env('FLASH_PAY_TOKEN');
     }
