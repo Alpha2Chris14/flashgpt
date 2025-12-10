@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('flash_payments', function (Blueprint $table) {
             $table->id();
+            $table->string('mch_order_no')->unique()->nullable(false);
+            $table->string('pay_order_id')->nullable()->index();
+            $table->string('mch_no')->nullable();
+            $table->string('app_id')->nullable();
+            $table->string('way_code')->nullable();
+            $table->integer('amount')->default(0); // in cents
+            $table->string('currency')->nullable();
+            $table->string('status')->default('created'); // created, paying, success, failed, closed
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }
